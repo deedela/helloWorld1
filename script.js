@@ -5,6 +5,23 @@ let disableDeck = false;
 function flipCard() {
     console.log('flipCard was executed');
 }
+
+function init() {
+    shuffleCards ();
+    initCardRotate ();
+}
+
+function initCardRotate() {
+    function addQuestionMarkClass(card) {
+        card.children[0].classList.add('question-mark');
+    }
+    let cardsCollection=document.getElementsByClassName('front-view');
+    let cards=Array.prototype.slice.call(cardsCollection,0);
+    console.log (cards)
+    // cards[0].children[0].classList.add('question-mark');
+    cards.forEach(addQuestionMarkClass);
+}
+
 function shuffleCards() {  
 matchedPairs = 0; // reset matchedPairs variable to 0
 disableDeck = false; // reset disableDeck boolean to false
@@ -19,5 +36,18 @@ cards.forEach((card, i) => { // loop over the set of cards. For each `card`...
     card.addEventListener("click", flipCard); // add a click event listener to the current card to execute a function `flipCard` when clicked
   });
 }
-shuffleCards();
+
+function flipCard(evt) {
+    // console.log('flipCard was executed');
+    // console.log(evt);
+    const clickedCard = evt.target;
+    if (cardOne !== clickedCard && !disableDeck) {
+     // make sure that the current variable cardOne is not the same value as the clickedCard, AND that the deck is NOT disabled
+     clickedCard.classList.add("flip");
+    }
+}
+  
+init();
+
+
 
